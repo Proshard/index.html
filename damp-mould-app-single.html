@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Damp & Mould Sensor Guide</title>
+  <style>
+:root {
+  --bg: #f2efe8;
+  --panel: rgba(255, 251, 244, 0.88);
+  --panel-strong: #fff8ef;
+  --text: #1d2629;
+  --muted: #5f6a6e;
+  --line: rgba(29, 38, 41, 0.12);
+  --accent: #136f63;
+  --accent-soft: #d9f1ea;
+  --warning: #d78b28;
+  --warning-soft: #fff1db;
+  --danger: #b94d33;
+  --danger-soft: #ffe3da;
+  --shadow: 0 20px 50px rgba(29, 38, 41, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(19, 111, 99, 0.14), transparent 34%),
+    radial-gradient(circle at top right, rgba(215, 139, 40, 0.16), transparent 28%),
+    linear-gradient(160deg, #f2efe8 0%, #e6efe8 46%, #f7f2ea 100%);
+}
+
+.page-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 40px;
+}
+
+.hero,
+.grid-layout {
+  display: grid;
+  gap: 24px;
+}
+
+.hero {
+  grid-template-columns: 1.45fr 0.95fr;
+  align-items: stretch;
+  margin-bottom: 24px;
+}
+
+.grid-layout {
+  grid-template-columns: 1.15fr 0.85fr;
+}
+
+.hero-copy,
+.hero-card,
+.panel {
+  backdrop-filter: blur(14px);
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+}
+
+.hero-copy {
+  padding: 36px;
+}
+
+.hero-card,
+.panel {
+  padding: 24px;
+}
+
+.hero-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eyebrow,
+.panel-kicker,
+.insight-label {
+  margin: 0 0 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: "Trebuchet MS", "Avenir Next Condensed", sans-serif;
+  line-height: 1.05;
+}
+
+h1 {
+  max-width: 13ch;
+  font-size: clamp(2.6rem, 5vw, 4.7rem);
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+}
+
+.hero-text,
+.hero-card-summary,
+.sensor-card p,
+.insight-card p,
+.advice-note p,
+.prediction-block p,
+.guide-item p,
+.tool-note,
+.report-item p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.hero-badges,
+.chip-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.hero-badges span,
+.chip-wrap span {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(29, 38, 41, 0.08);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.status-meter {
+  margin: 18px 0 10px;
+}
+
+.status-meter-bar {
+  width: 100%;
+  height: 16px;
+  border-radius: 999px;
+  background: #ebe5dc;
+  overflow: hidden;
+}
+
+.status-meter-fill {
+  height: 100%;
+  width: 64%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--warning) 62%, var(--danger) 100%);
+  transition: width 240ms ease;
+}
+
+.status-labels,
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.status-labels {
+  margin-top: 12px;
+  align-items: center;
+}
+
+.panel-heading {
+  margin-bottom: 18px;
+}
+
+.panel-heading.compact {
+  margin-bottom: 16px;
+}
+
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.panel-large {
+  grid-row: span 2;
+}
+
+.sensor-grid,
+.derived-grid,
+.guide-list {
+  display: grid;
+  gap: 14px;
+}
+
+.sensor-grid,
+.derived-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sensor-card,
+.insight-card,
+.driver-item,
+.guidance-list li,
+.guide-item {
+  padding: 18px;
+  border-radius: 22px;
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+}
+
+.sensor-card span,
+.insight-card span {
+  display: block;
+  font-size: 0.82rem;
+}
+
+.sensor-card strong,
+.insight-card strong,
+#exposureValue {
+  display: block;
+  margin: 10px 0 8px;
+  font-size: 2rem;
+}
+
+.controls-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.report-form {
+  display: grid;
+  gap: 14px;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 14px 16px;
+  font: inherit;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.primary-btn,
+.secondary-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+  transform: translateY(-1px);
+}
+
+.primary-btn {
+  background: var(--text);
+  color: #fff;
+}
+
+.secondary-btn {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.trend-panel,
+.advice-note,
+.prediction-block,
+.report-feed,
+.report-tools {
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.66);
+  border: 1px solid var(--line);
+}
+
+.driver-list,
+.guidance-list,
+.report-list {
+  display: grid;
+  gap: 12px;
+}
+
+.driver-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.driver-score {
+  min-width: 66px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  text-align: center;
+  font-weight: 800;
+  background: rgba(19, 111, 99, 0.1);
+  color: var(--accent);
+}
+
+.report-meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.report-tools {
+  display: grid;
+  gap: 10px;
+}
+
+.tool-note {
+  margin: 0;
+}
+
+.guidance-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+}
+
+.guidance-list li strong,
+.report-item strong,
+.guide-item strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.report-item {
+  padding: 18px;
+  border-radius: 22px;
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+}
+
+.report-item p {
+  margin: 8px 0 0;
+}
+
+.report-empty {
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.tier-banner {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 800;
+  background: var(--warning-soft);
+  color: #925700;
+}
+
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  background: rgba(19, 111, 99, 0.12);
+  color: var(--accent);
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .grid-layout,
+  .sensor-grid,
+  .derived-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-large {
+    grid-row: auto;
+  }
+
+  .page-shell {
+    width: min(100% - 20px, 1180px);
+    padding-top: 20px;
+  }
+
+  .hero-copy,
+  .hero-card,
+  .panel {
+    border-radius: 24px;
+  }
+
+  .panel-heading {
+    flex-direction: column;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Damp & Mould App</p>
+        <h1>Clear damp risk guidance from temperature and humidity only.</h1>
+        <p class="hero-text">
+          This version focuses on the readings a standard temperature and humidity sensor can actually provide.
+          It calculates dew point, condensation risk, mould risk, and moisture in the air in a simple, user-friendly way.
+        </p>
+        <div class="hero-badges">
+          <span>Temperature</span>
+          <span>Relative humidity</span>
+          <span>Dew point</span>
+          <span>Mould prevention tips</span>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <h2>Current condensation risk</h2>
+        <div class="status-meter">
+          <div class="status-meter-bar">
+            <div id="riskFill" class="status-meter-fill"></div>
+          </div>
+          <div class="status-labels">
+            <strong id="riskLabel">Moderate</strong>
+            <span id="riskScore">64 / 100</span>
+          </div>
+        </div>
+        <p id="riskSummary" class="hero-card-summary">
+          The air is moist enough that surfaces only need to be a little cooler for condensation to form.
+        </p>
+      </aside>
+    </header>
+
+    <main class="grid-layout">
+      <section class="panel panel-large">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-kicker">Live Sensor View</p>
+            <h2>Input your readings</h2>
+          </div>
+          <div class="action-row">
+            <button id="simulateReadings" class="secondary-btn" type="button">Simulate live reading</button>
+            <button id="toggleDemo" class="secondary-btn" type="button">Start auto demo</button>
+          </div>
+        </div>
+
+        <div class="sensor-grid">
+          <article class="sensor-card">
+            <span>Temperature</span>
+            <strong id="temperatureValue">17.0°C</strong>
+            <p>Cooler rooms make condensation more likely on walls, windows, and corners.</p>
+          </article>
+          <article class="sensor-card">
+            <span>Relative humidity</span>
+            <strong id="humidityValue">71%</strong>
+            <p>Indoor air is usually healthiest and easiest to manage between about 40% and 60% RH.</p>
+          </article>
+          <article class="sensor-card">
+            <span>Dew point</span>
+            <strong id="dewPointValue">11.7°C</strong>
+            <p>If a surface falls near this temperature, moisture can condense onto it.</p>
+          </article>
+          <article class="sensor-card">
+            <span>Absolute humidity</span>
+            <strong id="absoluteHumidityValue">10.3 g/m³</strong>
+            <p>This shows the actual moisture in the air, useful for spotting moisture spikes.</p>
+          </article>
+        </div>
+
+        <form class="controls-form" id="sensorForm">
+          <label>
+            Temperature (°C)
+            <input id="temperatureInput" name="temperature" type="range" min="5" max="30" step="0.5" value="17">
+          </label>
+          <label>
+            Relative humidity (%)
+            <input id="humidityInput" name="humidity" type="range" min="20" max="100" step="1" value="71">
+          </label>
+        </form>
+
+        <div class="derived-grid">
+          <article class="insight-card">
+            <span class="insight-label">Condensation risk</span>
+            <strong id="condensationValue">Medium</strong>
+            <p id="condensationText">
+              The dew point is fairly close to the room temperature, so cooler surfaces may become wet.
+            </p>
+          </article>
+          <article class="insight-card">
+            <span class="insight-label">Mould risk</span>
+            <strong id="mouldValue">Moderate</strong>
+            <p id="mouldText">
+              Humidity has been elevated often enough that mould could begin to develop if it stays like this.
+            </p>
+          </article>
+        </div>
+
+        <div class="trend-panel">
+          <div class="panel-heading compact">
+            <div>
+              <p class="panel-kicker">Why This Score</p>
+              <h3>What is driving the result</h3>
+            </div>
+            <div id="lastUpdated" class="live-pill">Live update ready</div>
+          </div>
+          <div id="driverList" class="driver-list"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading compact">
+          <div>
+            <p class="panel-kicker">Action Plan</p>
+            <h2>Tips to control and prevent damp & mould</h2>
+          </div>
+        </div>
+        <div id="guidanceTier" class="tier-banner">Preventive action</div>
+        <ul id="guidanceList" class="guidance-list"></ul>
+        <div class="advice-note">
+          <h3>What this means</h3>
+          <p id="inspectionNote">
+            The app is using only temperature and humidity, so it can flag condensation and mould conditions clearly,
+            but it cannot diagnose leaks or structural defects on its own.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading compact">
+          <div>
+            <p class="panel-kicker">Occupant Log</p>
+            <h2>Record what you can see and feel</h2>
+          </div>
+        </div>
+
+        <form id="reportForm" class="report-form">
+          <label>
+            Room or location
+            <input name="location" type="text" placeholder="Bedroom external wall" required>
+          </label>
+          <label>
+            What are you noticing?
+            <select id="issueTypeSelect" name="issueType" required>
+              <option value="visible mould">Visible mould</option>
+              <option value="condensation on window">Condensation on window</option>
+              <option value="damp patch">Damp patch</option>
+              <option value="musty smell">Musty smell</option>
+              <option value="peeling paint or plaster">Peeling paint or plaster</option>
+              <option value="cold wall or corner">Cold wall or corner</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <label id="customIssueWrapper" hidden>
+            Describe the issue
+            <input id="customIssueInput" name="customIssue" type="text" placeholder="Describe what you are noticing">
+          </label>
+          <label>
+            Severity
+            <select name="severity">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </label>
+          <label>
+            Notes
+            <textarea name="notes" rows="4" placeholder="For example: black mould behind wardrobe, stronger in the morning, window heavily wet."></textarea>
+          </label>
+          <button class="primary-btn" type="submit">Save log entry</button>
+        </form>
+
+        <div class="report-tools">
+          <button id="downloadReport" class="secondary-btn" type="button">Download proof document</button>
+          <p class="tool-note">
+            Generates a shareable text summary with the latest sensor snapshot and the occupant log for a housing provider or builder.
+          </p>
+        </div>
+
+        <div class="report-feed">
+          <div class="panel-heading compact">
+            <div>
+              <p class="panel-kicker">Saved Entries</p>
+              <h3>Recent reports</h3>
+            </div>
+          </div>
+          <div id="reportList" class="report-list"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading compact">
+          <div>
+            <p class="panel-kicker">At A Glance</p>
+            <h2>Moisture pattern</h2>
+          </div>
+        </div>
+        <div class="prediction-block">
+          <strong id="exposureValue">8.0 hrs</strong>
+          <p id="exposureText">
+            The recent history shows several hours above 70% relative humidity, which increases mould risk.
+          </p>
+        </div>
+        <div id="recommendationChips" class="chip-wrap"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading compact">
+          <div>
+            <p class="panel-kicker">Reading Guide</p>
+            <h2>How to use the dashboard</h2>
+          </div>
+        </div>
+        <div class="guide-list">
+          <div class="guide-item">
+            <strong>Dew point</strong>
+            <p>When dew point gets close to room temperature, windows and cold walls can start collecting water.</p>
+          </div>
+          <div class="guide-item">
+            <strong>Condensation risk</strong>
+            <p>This is based on the gap between air temperature and dew point. A smaller gap means more risk.</p>
+          </div>
+          <div class="guide-item">
+            <strong>Mould risk</strong>
+            <p>This uses humidity plus how long the air has stayed damp. Long periods above 70% RH are a warning sign.</p>
+          </div>
+          <div class="guide-item">
+            <strong>Absolute humidity</strong>
+            <p>This helps spot real moisture build-up from activities like showering, cooking, or drying clothes indoors.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+const sensorState = {
+  humidity: 71,
+  temperature: 17,
+};
+
+const HISTORY_KEY = "dampReadingHistory";
+const REPORTS_KEY = "dampOccupantReports";
+const DEMO_INTERVAL_MS = 1800;
+const memoryStore = {};
+
+const elements = {
+  humidityValue: document.getElementById("humidityValue"),
+  temperatureValue: document.getElementById("temperatureValue"),
+  dewPointValue: document.getElementById("dewPointValue"),
+  absoluteHumidityValue: document.getElementById("absoluteHumidityValue"),
+  humidityInput: document.getElementById("humidityInput"),
+  temperatureInput: document.getElementById("temperatureInput"),
+  riskFill: document.getElementById("riskFill"),
+  riskLabel: document.getElementById("riskLabel"),
+  riskScore: document.getElementById("riskScore"),
+  riskSummary: document.getElementById("riskSummary"),
+  condensationValue: document.getElementById("condensationValue"),
+  condensationText: document.getElementById("condensationText"),
+  mouldValue: document.getElementById("mouldValue"),
+  mouldText: document.getElementById("mouldText"),
+  driverList: document.getElementById("driverList"),
+  guidanceTier: document.getElementById("guidanceTier"),
+  guidanceList: document.getElementById("guidanceList"),
+  inspectionNote: document.getElementById("inspectionNote"),
+  exposureValue: document.getElementById("exposureValue"),
+  exposureText: document.getElementById("exposureText"),
+  recommendationChips: document.getElementById("recommendationChips"),
+  simulateReadings: document.getElementById("simulateReadings"),
+  toggleDemo: document.getElementById("toggleDemo"),
+  lastUpdated: document.getElementById("lastUpdated"),
+  reportForm: document.getElementById("reportForm"),
+  reportList: document.getElementById("reportList"),
+  downloadReport: document.getElementById("downloadReport"),
+  issueTypeSelect: document.getElementById("issueTypeSelect"),
+  customIssueWrapper: document.getElementById("customIssueWrapper"),
+  customIssueInput: document.getElementById("customIssueInput"),
+};
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function roundTo(value, places = 1) {
+  const factor = 10 ** places;
+  return Math.round(value * factor) / factor;
+}
+
+function getStoredValue(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch (error) {
+    return Object.prototype.hasOwnProperty.call(memoryStore, key) ? memoryStore[key] : null;
+  }
+}
+
+function setStoredValue(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch (error) {
+    memoryStore[key] = value;
+  }
+}
+
+function createId() {
+  if (typeof window !== "undefined" && window.crypto && typeof window.crypto.randomUUID === "function") {
+    return window.crypto.randomUUID();
+  }
+
+  return `entry-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
+function loadHistory() {
+  const stored = JSON.parse(getStoredValue(HISTORY_KEY) || "null");
+
+  if (Array.isArray(stored) && stored.length > 0) {
+    return stored;
+  }
+
+  const now = Date.now();
+  const seed = [];
+  const humidityPattern = [66, 68, 70, 73, 74, 72, 69, 67, 71, 75, 78, 72];
+  const temperaturePattern = [18, 18, 17.5, 17, 17, 16.5, 16.5, 17, 17.5, 17, 16.5, 17];
+
+  humidityPattern.forEach((humidity, index) => {
+    seed.push({
+      timestamp: new Date(now - (humidityPattern.length - 1 - index) * 2 * 60 * 60 * 1000).toISOString(),
+      humidity,
+      temperature: temperaturePattern[index],
+    });
+  });
+
+  setStoredValue(HISTORY_KEY, JSON.stringify(seed));
+  return seed;
+}
+
+let readingHistory = loadHistory();
+
+function loadReports() {
+  const stored = JSON.parse(getStoredValue(REPORTS_KEY) || "null");
+
+  if (Array.isArray(stored) && stored.length > 0) {
+    return stored;
+  }
+
+  const seededReports = [
+    {
+      id: createId(),
+      location: "Main bedroom external wall",
+      issueType: "visible mould",
+      severity: "high",
+      notes: "Black spotting behind the wardrobe and the wall feels colder in the morning.",
+      createdAt: new Date(Date.now() - 18 * 60 * 60 * 1000).toISOString(),
+    },
+    {
+      id: createId(),
+      location: "Bathroom window",
+      issueType: "condensation on window",
+      severity: "medium",
+      notes: "Heavy water on the glass after showers and sill stays wet for a while.",
+      createdAt: new Date(Date.now() - 42 * 60 * 60 * 1000).toISOString(),
+    },
+  ];
+
+  setStoredValue(REPORTS_KEY, JSON.stringify(seededReports));
+  return seededReports;
+}
+
+let reports = loadReports();
+let demoIntervalId = null;
+
+function saveHistory() {
+  setStoredValue(HISTORY_KEY, JSON.stringify(readingHistory));
+}
+
+function saveReports() {
+  setStoredValue(REPORTS_KEY, JSON.stringify(reports));
+}
+
+function recordReading(forceNewEntry = false) {
+  const now = new Date();
+  const latest = readingHistory[readingHistory.length - 1];
+
+  if (!forceNewEntry && latest) {
+    const elapsedMinutes = (now.getTime() - new Date(latest.timestamp).getTime()) / (1000 * 60);
+
+    if (elapsedMinutes < 15) {
+      latest.timestamp = now.toISOString();
+      latest.humidity = sensorState.humidity;
+      latest.temperature = sensorState.temperature;
+      saveHistory();
+      return;
+    }
+  }
+
+  readingHistory.push({
+    timestamp: now.toISOString(),
+    humidity: sensorState.humidity,
+    temperature: sensorState.temperature,
+  });
+
+  const cutoff = now.getTime() - 48 * 60 * 60 * 1000;
+  readingHistory = readingHistory.filter((entry) => new Date(entry.timestamp).getTime() >= cutoff);
+  saveHistory();
+}
+
+function calculateDewPoint(temperature, humidity) {
+  const a = 17.27;
+  const b = 237.7;
+  const gamma = Math.log(humidity / 100) + (a * temperature) / (b + temperature);
+  return (b * gamma) / (a - gamma);
+}
+
+function calculateAbsoluteHumidity(temperature, humidity) {
+  const vaporPressure = 6.112 * Math.exp((17.67 * temperature) / (temperature + 243.5)) * (humidity / 100);
+  return (vaporPressure * 2.1674) / (273.15 + temperature);
+}
+
+function getHumidityExposureHours(history, threshold = 70) {
+  if (history.length === 0) {
+    return 0;
+  }
+
+  let exposureHours = 0;
+
+  for (let index = 1; index < history.length; index += 1) {
+    const previous = history[index - 1];
+    const current = history[index];
+    const intervalHours = clamp(
+      (new Date(current.timestamp).getTime() - new Date(previous.timestamp).getTime()) / (1000 * 60 * 60),
+      0,
+      6
+    );
+
+    if (previous.humidity >= threshold) {
+      exposureHours += intervalHours;
+    }
+  }
+
+  const last = history[history.length - 1];
+  if (last.humidity >= threshold) {
+    exposureHours += 1;
+  }
+
+  return Math.min(exposureHours, 24);
+}
+
+function getCondensationRisk(spread, humidity) {
+  if (spread <= 2 || humidity >= 80) {
+    return {
+      label: "High",
+      score: 88,
+      summary: "Dew point is very close to the air temperature, so even slightly colder surfaces may become wet.",
+    };
+  }
+
+  if (spread <= 5 || humidity >= 70) {
+    return {
+      label: "Medium",
+      score: 64,
+      summary: "The dew point is fairly close to the room temperature, so cooler surfaces may become wet.",
+    };
+  }
+
+  return {
+    label: "Low",
+    score: 28,
+    summary: "There is still some margin between room temperature and dew point, so condensation is less likely right now.",
+  };
+}
+
+function getMouldRisk(humidity, exposureHours, temperature) {
+  const temperatureBandScore = temperature >= 10 && temperature <= 25 ? 1 : 0;
+
+  if ((humidity >= 75 && exposureHours >= 8) || humidity >= 80) {
+    return {
+      label: "High",
+      summary: "Humidity has stayed high for long enough that mould growth conditions are strong.",
+      score: 86 + temperatureBandScore * 4,
+    };
+  }
+
+  if ((humidity >= 65 && exposureHours >= 4) || humidity >= 70) {
+    return {
+      label: "Moderate",
+      summary: "Humidity is elevated often enough that mould could begin to develop if it stays like this.",
+      score: 58 + temperatureBandScore * 4,
+    };
+  }
+
+  return {
+    label: "Low",
+    summary: "Current moisture conditions are less supportive of mould growth.",
+    score: 24 + temperatureBandScore * 2,
+  };
+}
+
+function computeMetrics() {
+  const dewPoint = calculateDewPoint(sensorState.temperature, sensorState.humidity);
+  const absoluteHumidity = calculateAbsoluteHumidity(sensorState.temperature, sensorState.humidity);
+  const spread = sensorState.temperature - dewPoint;
+  const last24Hours = readingHistory.filter(
+    (entry) => Date.now() - new Date(entry.timestamp).getTime() <= 24 * 60 * 60 * 1000
+  );
+  const exposureHours = getHumidityExposureHours(last24Hours, 70);
+  const condensationRisk = getCondensationRisk(spread, sensorState.humidity);
+  const mouldRisk = getMouldRisk(sensorState.humidity, exposureHours, sensorState.temperature);
+  const overallScore = Math.round((condensationRisk.score * 0.55) + (mouldRisk.score * 0.45));
+
+  return {
+    dewPoint: roundTo(dewPoint),
+    absoluteHumidity: roundTo(absoluteHumidity),
+    spread: roundTo(spread),
+    exposureHours: roundTo(exposureHours),
+    condensationRisk,
+    mouldRisk,
+    overallScore,
+  };
+}
+
+function getGuidance(metrics) {
+  const actions = [];
+  const chips = [];
+  let tier = "Preventive action";
+  let note = "The app uses sensor-derived moisture conditions to highlight condensation risk, but hidden leaks still need a separate inspection.";
+
+  if (sensorState.humidity >= 70) {
+    actions.push({
+      title: "Reduce moisture at source",
+      body: "Use extractor fans when cooking or showering, keep lids on pans, and avoid drying clothes indoors where possible.",
+    });
+    chips.push("Cut indoor moisture");
+  }
+
+  if (metrics.condensationRisk.label !== "Low") {
+    actions.push({
+      title: "Protect cold surfaces",
+      body: "Keep air moving around windows, corners, and external walls, and avoid pushing large furniture tight against colder walls.",
+    });
+    chips.push("Watch cold walls");
+  }
+
+  if (sensorState.temperature < 18) {
+    actions.push({
+      title: "Keep rooms steadily warm",
+      body: "Gentle background heating can help keep surfaces above the dew point and reduce morning condensation.",
+    });
+    chips.push("Steadier heating");
+  }
+
+  if (metrics.exposureHours >= 6) {
+    actions.push({
+      title: "Act on long damp periods",
+      body: "Several hours above 70% RH means mould risk is building. Wipe condensation early and keep ventilation going after humid activities.",
+    });
+    chips.push("High RH duration");
+  }
+
+  if (metrics.condensationRisk.label === "High" || metrics.mouldRisk.label === "High") {
+    tier = "High-priority action";
+    note = "These conditions are strongly associated with condensation and mould growth. If this pattern keeps returning after behaviour changes, check for insulation gaps, leaks, or other building issues.";
+    actions.unshift({
+      title: "Respond quickly",
+      body: "Try to bring humidity down soon and dry any wet surfaces before moisture persists long enough for mould to establish.",
+    });
+    chips.unshift("Respond quickly");
+  } else if (metrics.condensationRisk.label === "Medium" || metrics.mouldRisk.label === "Moderate") {
+    tier = "Early action recommended";
+    note = "The readings suggest a meaningful condensation pattern. This is a good stage to intervene before mould becomes visible.";
+  }
+
+  if (actions.length === 0) {
+    actions.push({
+      title: "Keep monitoring",
+      body: "Conditions look fairly steady right now. Continue checking after showers, cooking, or overnight when damp risk can rise.",
+    });
+    chips.push("Keep monitoring");
+  }
+
+  return { actions, chips, tier, note };
+}
+
+function titleCase(value) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function formatReportDate(dateValue) {
+  return new Date(dateValue).toLocaleString("en-GB", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+}
+
+function renderDrivers(metrics) {
+  const drivers = [
+    {
+      label: "Temperature to dew point gap",
+      score: `${metrics.spread}°C`,
+      summary: metrics.spread <= 2
+        ? "Very small gap. Surfaces only need to be slightly colder for condensation."
+        : metrics.spread <= 5
+          ? "Moderate gap. Cold spots may still collect moisture."
+          : "Wider gap. Condensation is less likely unless surfaces are much colder than the room.",
+    },
+    {
+      label: "Current relative humidity",
+      score: `${sensorState.humidity}%`,
+      summary: sensorState.humidity >= 70
+        ? "Humidity is high enough to support condensation and mould if it persists."
+        : "Humidity is in a lower-risk range right now.",
+    },
+    {
+      label: "Time above 70% RH",
+      score: `${metrics.exposureHours}h`,
+      summary: metrics.exposureHours >= 6
+        ? "Moisture has stayed elevated for a long stretch, which matters for mould growth."
+        : "Recent high-humidity exposure has been limited.",
+    },
+    {
+      label: "Moisture in the air",
+      score: `${metrics.absoluteHumidity} g/m³`,
+      summary: "Absolute humidity helps show how much water vapour is actually in the room air.",
+    },
+  ];
+
+  elements.driverList.innerHTML = "";
+
+  drivers.forEach((driver) => {
+    const item = document.createElement("div");
+    item.className = "driver-item";
+    item.innerHTML = `
+      <div>
+        <strong>${driver.label}</strong>
+        <div class="report-meta">${driver.summary}</div>
+      </div>
+      <div class="driver-score">${driver.score}</div>
+    `;
+    elements.driverList.appendChild(item);
+  });
+}
+
+function renderReports() {
+  saveReports();
+  elements.reportList.innerHTML = "";
+
+  const sortedReports = reports
+    .slice()
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  if (sortedReports.length === 0) {
+    const emptyState = document.createElement("div");
+    emptyState.className = "report-empty";
+    emptyState.textContent = "No log entries yet. Add observations to build a record for the housing provider or builder.";
+    elements.reportList.appendChild(emptyState);
+    return;
+  }
+
+  sortedReports.forEach((report) => {
+    const item = document.createElement("div");
+    item.className = "report-item";
+    item.innerHTML = `
+      <strong>${report.location}</strong>
+      <div>${report.issueType}</div>
+      <div class="report-meta">${titleCase(report.severity)} severity • ${formatReportDate(report.createdAt)}</div>
+      <p>${report.notes || "No additional notes provided."}</p>
+    `;
+    elements.reportList.appendChild(item);
+  });
+}
+
+function renderGuidance(guidance) {
+  elements.guidanceTier.textContent = guidance.tier;
+  elements.inspectionNote.textContent = guidance.note;
+  elements.guidanceList.innerHTML = "";
+  elements.recommendationChips.innerHTML = "";
+
+  guidance.actions.forEach((action) => {
+    const item = document.createElement("li");
+    item.innerHTML = `<strong>${action.title}</strong><span>${action.body}</span>`;
+    elements.guidanceList.appendChild(item);
+  });
+
+  guidance.chips.forEach((chip) => {
+    const chipEl = document.createElement("span");
+    chipEl.textContent = chip;
+    elements.recommendationChips.appendChild(chipEl);
+  });
+}
+
+function renderDashboard() {
+  const metrics = computeMetrics();
+  const guidance = getGuidance(metrics);
+
+  elements.temperatureValue.textContent = `${sensorState.temperature.toFixed(1)}°C`;
+  elements.humidityValue.textContent = `${sensorState.humidity}%`;
+  elements.dewPointValue.textContent = `${metrics.dewPoint}°C`;
+  elements.absoluteHumidityValue.textContent = `${metrics.absoluteHumidity} g/m³`;
+
+  elements.temperatureInput.value = sensorState.temperature;
+  elements.humidityInput.value = sensorState.humidity;
+
+  elements.riskFill.style.width = `${metrics.overallScore}%`;
+  elements.riskLabel.textContent = `${metrics.condensationRisk.label} condensation risk`;
+  elements.riskScore.textContent = `${metrics.overallScore} / 100`;
+  elements.riskSummary.textContent = metrics.condensationRisk.summary;
+
+  elements.condensationValue.textContent = metrics.condensationRisk.label;
+  elements.condensationText.textContent = metrics.condensationRisk.summary;
+  elements.mouldValue.textContent = metrics.mouldRisk.label;
+  elements.mouldText.textContent = metrics.mouldRisk.summary;
+
+  elements.exposureValue.textContent = `${metrics.exposureHours.toFixed(1)} hrs`;
+  elements.exposureText.textContent =
+    metrics.exposureHours >= 6
+      ? "The recent history shows several hours above 70% relative humidity, which increases mould risk."
+      : "Recent time above 70% relative humidity has been more limited, so mould risk from persistence is lower.";
+  elements.lastUpdated.textContent = `Updated ${new Date().toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  })}`;
+
+  renderDrivers(metrics);
+  renderGuidance(guidance);
+}
+
+function toggleCustomIssueField() {
+  const showCustomField = elements.issueTypeSelect.value === "other";
+  elements.customIssueWrapper.hidden = !showCustomField;
+  elements.customIssueInput.required = showCustomField;
+
+  if (!showCustomField) {
+    elements.customIssueInput.value = "";
+  }
+}
+
+function buildExportText() {
+  const metrics = computeMetrics();
+  const lines = [
+    "Damp & Mould Case Summary",
+    "",
+    `Generated: ${formatReportDate(new Date().toISOString())}`,
+    "",
+    "Latest sensor snapshot",
+    `- Temperature: ${sensorState.temperature.toFixed(1)} C`,
+    `- Relative humidity: ${sensorState.humidity}%`,
+    `- Dew point: ${metrics.dewPoint} C`,
+    `- Absolute humidity: ${metrics.absoluteHumidity} g/m3`,
+    `- Condensation risk: ${metrics.condensationRisk.label}`,
+    `- Mould risk: ${metrics.mouldRisk.label}`,
+    `- Time above 70% RH in recent history: ${metrics.exposureHours.toFixed(1)} hours`,
+    "",
+    "Occupant log",
+  ];
+
+  if (reports.length === 0) {
+    lines.push("- No occupant log entries recorded.");
+  } else {
+    reports
+      .slice()
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      .forEach((report, index) => {
+        lines.push(`${index + 1}. ${report.location}`);
+        lines.push(`   Type: ${report.issueType}`);
+        lines.push(`   Severity: ${titleCase(report.severity)}`);
+        lines.push(`   Date: ${formatReportDate(report.createdAt)}`);
+        lines.push(`   Notes: ${report.notes || "No additional notes provided."}`);
+      });
+  }
+
+  lines.push("");
+  lines.push("Use");
+  lines.push("- This document is intended to help residents share a simple record of conditions and observations with a housing provider, surveyor, or builder.");
+
+  return lines.join("\n");
+}
+
+function downloadCaseSummary() {
+  const content = buildExportText();
+  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  const dateStamp = new Date().toISOString().slice(0, 10);
+
+  link.href = url;
+  link.download = `damp-mould-case-summary-${dateStamp}.txt`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
+function updateSensorsFromInputs() {
+  sensorState.temperature = Number(elements.temperatureInput.value);
+  sensorState.humidity = Number(elements.humidityInput.value);
+  recordReading(false);
+  renderDashboard();
+}
+
+function simulateSensorReading() {
+  sensorState.temperature = clamp(roundTo(sensorState.temperature + (Math.random() * 5 - 2.5)), 8, 26);
+  sensorState.humidity = clamp(Math.round(sensorState.humidity + (Math.random() * 20 - 10)), 30, 95);
+  recordReading(true);
+  renderDashboard();
+}
+
+function toggleAutoDemo() {
+  if (demoIntervalId) {
+    clearInterval(demoIntervalId);
+    demoIntervalId = null;
+    elements.toggleDemo.textContent = "Start auto demo";
+    elements.lastUpdated.textContent = "Auto demo stopped";
+    return;
+  }
+
+  simulateSensorReading();
+  demoIntervalId = window.setInterval(simulateSensorReading, DEMO_INTERVAL_MS);
+  elements.toggleDemo.textContent = "Stop auto demo";
+}
+
+elements.reportForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.currentTarget);
+  const selectedIssueType = formData.get("issueType").toString();
+  const customIssue = formData.get("customIssue").toString().trim();
+  const issueType = selectedIssueType === "other" ? customIssue : selectedIssueType;
+
+  if (!issueType) {
+    elements.customIssueInput.focus();
+    return;
+  }
+
+  reports.unshift({
+    id: createId(),
+    location: formData.get("location").toString().trim(),
+    issueType,
+    severity: formData.get("severity").toString(),
+    notes: formData.get("notes").toString().trim(),
+    createdAt: new Date().toISOString(),
+  });
+
+  event.currentTarget.reset();
+  toggleCustomIssueField();
+  renderReports();
+});
+
+[elements.temperatureInput, elements.humidityInput].forEach((input) => {
+  input.addEventListener("input", updateSensorsFromInputs);
+  input.addEventListener("change", updateSensorsFromInputs);
+});
+
+elements.simulateReadings.addEventListener("click", simulateSensorReading);
+elements.toggleDemo.addEventListener("click", toggleAutoDemo);
+elements.downloadReport.addEventListener("click", downloadCaseSummary);
+elements.issueTypeSelect.addEventListener("change", toggleCustomIssueField);
+
+recordReading(false);
+renderReports();
+renderDashboard();
+toggleCustomIssueField();
+  </script>
+</body>
+</html>
